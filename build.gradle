@@ -20,5 +20,5 @@ test {
     useJUnitPlatform()
 }
 application {
-    mainClass.set("Game")
+    mainClass.set("Application")
 }
