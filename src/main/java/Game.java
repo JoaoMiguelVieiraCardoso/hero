@@ -42,13 +42,15 @@ public class Game {
         if (key.getKeyType() == KeyType.ArrowDown) y += 1;
         if (key.getKeyType() == KeyType.ArrowLeft) x -= 1;
         if (key.getKeyType() == KeyType.ArrowRight) x += 1;
-
     }
     public void run()throws IOException{
         while(true) {
             draw();
             KeyStroke key = screen.readInput();
-            if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') screen.close();
+            if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q'){
+                screen.close();
+                break;
+            }
             processKey(key);
         }
     }
