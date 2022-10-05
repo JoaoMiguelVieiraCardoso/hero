@@ -13,11 +13,9 @@ public class Game {
     private Arena arena;
     public Game() {
         try{
-            arena = new Arena(35, 15);
+            arena = new Arena(40, 20);
             TerminalSize terminalSize = new TerminalSize(40, 20);
-            DefaultTerminalFactory terminalFactory = new
-                    DefaultTerminalFactory()
-                    .setInitialTerminalSize(terminalSize);
+            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
             Terminal terminal = terminalFactory.createTerminal();
             screen = new TerminalScreen(terminal);
             screen.setCursorPosition(null); // we don't need a cursor

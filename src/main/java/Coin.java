@@ -3,13 +3,13 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-public class Wall extends Element {
-    public Wall(int a, int b){
+public class Coin extends Element{
+    public Coin(int a, int b){
         position = new Position(a, b);
     }
     public void draw(TextGraphics graphics) {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#000000"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
         graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(position.get_x(), position.get_y()), "W");
+        graphics.putString(new TerminalPosition(position.get_x(), position.get_y()), "O");
     }
 }
