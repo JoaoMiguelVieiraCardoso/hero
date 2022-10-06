@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
+
 public class Arena {
     private int width;
     private int height;
@@ -16,6 +18,7 @@ public class Arena {
     private List<Wall> walls;
     private List<Coin> coins;
     private List<Monster> monsters;
+    private List<Energy> energies;
     public Arena(int a, int b){
         width = a;
         height = b;
@@ -23,6 +26,7 @@ public class Arena {
         this.walls = createWalls();
         this.coins = createCoins();
         this.monsters = createMonsters();
+        this.energies = createEnergies();
     }
     public void processKey(KeyStroke key) {
         if (key.getKeyType() == KeyType.ArrowUp) moveHero(hero.moveUp());
@@ -43,13 +47,17 @@ public class Arena {
         for(Monster monster : monsters){
             monster.draw(graphics);
         }
+        for(Energy energy : energies){
+            energy.draw(graphics);
+        }
     }
     public void moveHero(Position position){
         if(canHeroMove(position)){
             hero.setPosition(position);
+            drainEnergy();
             moveMonsters();
             retrieveCoins(position);
-
+            drainEnergy();
         }
     }
     public boolean canHeroMove(Position position){
@@ -64,7 +72,7 @@ public class Arena {
         List<Wall> walls = new ArrayList<>();
         for (int c = 0; c < width; c++) {
             walls.add(new Wall(c, 0));
-            walls.add(new Wall(c, height - 1));
+            walls.add(new Wall(c, height - 2));
         }
         for (int r = 1; r < height - 1; r++) {
             walls.add(new Wall(0, r));
@@ -76,7 +84,7 @@ public class Arena {
         Random random = new Random();
         ArrayList<Coin> coins = new ArrayList<>();
         for (int i = 0; i < 5; i++)
-            coins.add(new Coin(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
+            coins.add(new Coin(random.nextInt(width - 2) + 1, random.nextInt(height - 3) + 1));
         return coins;
     }
     public void retrieveCoins(Position position){
@@ -91,7 +99,7 @@ public class Arena {
         Random random = new Random();
         ArrayList<Monster> monsters = new ArrayList<>();
         for (int i = 0; i < 5; i++)
-            monsters.add(new Monster(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
+            monsters.add(new Monster(random.nextInt(width - 2) + 1, random.nextInt(height - 3) + 1));
         return monsters;
     }
     public boolean canMonsterMove(Position position){
@@ -120,5 +128,33 @@ public class Arena {
                 }
             }
         }
+    }
+    public boolean verifyMonsterCollisions(){
+        for(Monster monster : monsters){
+            if(monster.getPosition().equals(hero.getPosition())){
+                return true;
+            }
+        }
+        return false;
+    }
+    public List<Energy> createEnergies(){
+        ArrayList<Energy> energies = new ArrayList<>();
+        for(int i = 5; i > 0; i--){
+            energies.add(new Energy(i, height -1));
+        }
+        return energies;
+    }
+    public boolean drainEnergy(){
+        if(verifyMonsterCollisions()){
+            for(Energy energy : energies){
+                energies.remove(energy);
+                break;
+            }
+            if(energies.isEmpty()){
+                System.out.println("Game Over");
+                return true;
+            }
+        }
+        return false;
     }
 }

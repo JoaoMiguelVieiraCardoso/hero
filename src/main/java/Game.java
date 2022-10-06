@@ -13,8 +13,8 @@ public class Game {
     private Arena arena;
     public Game() {
         try{
-            arena = new Arena(40, 20);
-            TerminalSize terminalSize = new TerminalSize(40, 20);
+            arena = new Arena(190, 50);
+            TerminalSize terminalSize = new TerminalSize(190, 50);
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
             Terminal terminal = terminalFactory.createTerminal();
             screen = new TerminalScreen(terminal);
@@ -38,7 +38,7 @@ public class Game {
         while(true) {
             draw();
             KeyStroke key = screen.readInput();
-            if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q'){
+            if ((key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') || (arena.drainEnergy() == true)){
                 screen.close();
                 break;
             }

@@ -3,14 +3,14 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-public class Wall extends Element {
-    public Wall(int a, int b){
+public class Energy extends Element{
+    public Energy(int a , int b){
         position = new Position(a, b);
     }
     public void draw(TextGraphics graphics) {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#00ffff"));
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#00ffff"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#ff0000"));
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#ff0000"));
         graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(position.get_x(), position.get_y()), "W");
+        graphics.putString(new TerminalPosition(position.get_x(), position.get_y()), "H");
     }
 }

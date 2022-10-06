@@ -11,6 +11,7 @@ public class Monster extends Element{
     }
     public void draw(TextGraphics graphics){
         graphics.setForegroundColor(TextColor.Factory.fromString("#FF33FF"));
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
         graphics.enableModifiers(SGR.BOLD);
         graphics.putString(new TerminalPosition(position.get_x(), position.get_y()), "V");
     }
